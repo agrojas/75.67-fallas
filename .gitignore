@@ -1,1 +1,4 @@
-tp/*
+tp/tp.iml
+tp/.idea
+tp/.gradle
+tp/build
