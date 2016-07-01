@@ -9,6 +9,8 @@ sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
 mainClassName = "fallas.Tp"
+version = '1.0'
+
 
 repositories {
     maven {
