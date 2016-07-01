@@ -1,0 +1,37 @@
+
+
+// Regla 1
+//Estado de la regla
+//SI el operario no tiene zapatos de seguridad, no tiene ropa de trabajo o la tiene pero ésta tiene mas de 6 meses de antiguedad, no posee protección visual o no posee protección auditiva ENTONCES el puesto de trabajo no cumple con normas de protección personal.
+//Formulación externa de
+//la regla
+//SI (zapatos_de_seguridad=No) ó ((ropa_de_trabajo=No) ó ((ropa_de_trabajo=Si) y (antiguedad>6 meses))) ó ((protección_visual=No) ó ((nivel_de_ruido>85 db) y (protección_auditiva=No)) ENTONCES resultado=el puesto de trabajo no cumple con normas de protección personal.
+//Nombre de la regla
+//Verificar protección personal.
+
+// Regla 2
+//Estado de la regla
+//SI el ambiente de trabajo supera el umbral de ruido permitido, (85db), tiene un nivel de iluminación menor a 300 lux o no está debidamente delimitada ENTONCES el puesto de trabajo no cumple de higiene en el ambientes laboral.
+//Formulación externa de
+//la regla
+//SI ((nivel_de_ruido>85 db) y (protección_auditiva=No)) ó (nivel_de_luz<300 lux) ó (delimitación=No) ENTONCES resultado=el puesto de trabajo no cumple con normas de higiene en el ambientes laboral.
+//Nombre de la regla
+//Verificar higiene en el ambiente laboral.
+
+// Regla 3
+//Estado de la regla
+//SI la maquina guillotina no tiene descarga a tierra o no tiene protección de riesgo mecánico (delimitación de zona de riesgo, sensores de detección, panel delimitador de acceso de manos o comando de acción a dos manos) ENTONCES el puesto de trabajo no cumple con normas de seguridad en el ambiente laboral.
+//Formulación externa de
+//la regla
+//SI (descarga_a_tierra=No) ó ((delimitación_de_zona_de_riego=No) y (sensores_de_detección=No) y (panel_delimitador_de_acceso=No) y (comando_de_acción_a_dos_manos=No)) ENTONCES resultado=el puesto de trabajo no cumple con normas de seguridad en el ambiente laboral.
+//Nombre de la regla
+//Verificar seguridad en el ambiente laboral.
+
+// Regla 4
+//Estado de la regla
+//SI el operario tiene zapatos de seguridad, tiene ropa de trabajo y ésta tiene menos de 6 meses de antigüedad, posee protección visual, posee protección auditiva, además el ambiente de trabajo no supera el umbral de ruido permitido, (85db), tiene un nivel de iluminación superior a 300 lux, está debidamente delimitada y, la máquina guillotina tiene descarga a tierra y protección de riesgo mecánico (delimitación de zona de riesgo, sensores de detección, panel delimitador de acceso de manos o comando de acción a dos manos)  ENTONCES el puesto de trabajo cumple con las normas de seguridad e higiene para el mismo.
+//Formulación externa de
+//la regla
+//SI (zapatos_de_seguridad=Si) y ((ropa_de_trabajo=Si) y (antiguedad<6 meses)) y ((protección_visual=Si) ó (nivel_de_ruido<85 db)) y (nivel_de_luz>=300 lux) y (delimitación=Si) y (descarga_a_tierra=Si) y ((delimitación_de_zona_de_riego=Si) ó (sensores_de_detección=Si) ó (panel_delimitador_de_acceso=Si) ó (comando_de_acción_a_dos_manos=Si)) ENTONCES resultado=el puesto de trabajo cumple con las normas de seguridad e higiene para el mismo.
+//Nombre de la regla
+//Puesto de trabajo seguro e higiénico.

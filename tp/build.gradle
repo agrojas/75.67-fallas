@@ -1,10 +1,20 @@
-apply plugin: 'java'
+group 'fallas'
+version '1.0'
 
-sourceCompatibility = 1.5
-version = '1.0'
+apply plugin: 'java'
+apply plugin: 'idea'
+apply plugin: 'application'
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+mainClassName = "fallas.Tp"
 
 repositories {
-    mavenCentral()
+    maven {
+        name 'central'
+        url 'http://repo1.maven.org/maven2'
+    }
     maven {
         name 'jboss'
         url 'http://repository.jboss.org/nexus/content/groups/public-jboss'
@@ -12,5 +22,7 @@ repositories {
 }
 
 dependencies {
-    testCompile group: 'junit', name: 'junit', version: '4.11'
+    compile "org.kie:kie-api:6.4.0.Final"
+    compile "org.drools:drools-core:5.6.0.Final"
+    compile "org.drools:drools-compiler:5.6.0.Final"
 }
