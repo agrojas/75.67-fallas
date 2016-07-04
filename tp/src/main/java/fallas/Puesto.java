@@ -7,11 +7,24 @@ public class Puesto {
     private Operador operador;
     private Maquina maquina;
     private Ambiente ambiente;
+    private String nombre;
 
-    public Puesto(Operador operador, Maquina maquina, Ambiente ambiente) {
+    public Puesto(Operador operador, Maquina maquina, Ambiente ambiente, String nombre) {
         this.operador = operador;
         this.maquina = maquina;
         this.ambiente = ambiente;
+        this.nombre = nombre;
+    }
+
+    public Puesto() {
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
     public Operador getOperador() {
