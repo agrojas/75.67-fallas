@@ -11,11 +11,24 @@ public class Puesto {
     private Boolean maquinaAprobado;
     private Ambiente ambiente;
     private Boolean ambienteAprobado;
+    private String nombre;
 
-    public Puesto(Operador operador, Maquina maquina, Ambiente ambiente) {
+    public Puesto(Operador operador, Maquina maquina, Ambiente ambiente, String nombre) {
         this.operador = operador;
         this.maquina = maquina;
         this.ambiente = ambiente;
+        this.nombre = nombre;
+    }
+
+    public Puesto() {
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
     public Operador getOperador() {
@@ -53,7 +66,10 @@ public class Puesto {
     public String getStatus() {
         String reporte = "";
         if (!operadorAprobado) {
-            reporte = reporte + "Operador: No esta aprobada la proteccion personal";
+            reporte = reporte + "Operador: La proteccion personal del operador no esta aprobada\n";
+        }
+        if (!ambienteAprobado) {
+            reporte = reporte + "Ambiente: La higiene del ambiente laboral no esta aprobada\n";
         }
 
         return reporte;
