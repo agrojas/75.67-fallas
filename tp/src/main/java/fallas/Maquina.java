@@ -18,6 +18,10 @@ public class Maquina {
         this.comandoDeAccionADosManos = comandoDeAccionADosManos;
     }
 
+    public Maquina() {
+
+    }
+
     public Boolean getDescargaATierra() {
         return descargaATierra;
     }

@@ -10,7 +10,7 @@ public class Operador {
     private Boolean protecciónVisual;
     private Boolean protecciónAuditiva;
 
-    public Operador(Boolean zapatosDeSeguridad, Boolean ropaDeTrabajo, Integer antiguedad, Boolean protecciónVisual, Boolean protecciónAuditiva) {
+    public Operador() {
         this.zapatosDeSeguridad = zapatosDeSeguridad;
         this.ropaDeTrabajo = ropaDeTrabajo;
         this.antiguedad = antiguedad;

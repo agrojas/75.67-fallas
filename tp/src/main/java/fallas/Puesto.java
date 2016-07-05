@@ -17,6 +17,10 @@ public class Puesto {
     }
 
     public Puesto() {
+        this.operador  = new Operador();
+        this.maquina  = new Maquina();
+        this.ambiente = new Ambiente();
+        this.nombre = "";
     }
 
     public String getNombre() {

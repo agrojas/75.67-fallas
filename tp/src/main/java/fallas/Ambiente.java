@@ -8,7 +8,7 @@ public class Ambiente {
     private Double nivelLuz;
     private Boolean delimitacion;
 
-    public Ambiente(Double nivelRuido, Double nivelLuz, Boolean delimitacion) {
+    public Ambiente() {
         this.nivelRuido = nivelRuido;
         this.nivelLuz = nivelLuz;
         this.delimitacion = delimitacion;
