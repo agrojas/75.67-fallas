@@ -1,8 +1,8 @@
 package fallas;
 
-import src.main.java.fallas.Puesto;
-import src.main.java.fallas.Operador;
-import src.main.java.fallas.Ambiente;
+import Puesto;
+import Operador;
+import Ambiente;
 
 
 // Regla 1 "Verificar protección personal"

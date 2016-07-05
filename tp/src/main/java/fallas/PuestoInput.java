@@ -14,8 +14,13 @@ import java.nio.charset.StandardCharsets;
  */
 public class PuestoInput {
 
-    private Puesto puesto;
-    static Integer numeroDePuesto;
+    private Puesto puesto ;
+    private static Integer numeroDePuesto = 0;
+
+    public PuestoInput() {
+        this.puesto = null;
+    }
+
     public void setPuesto(Puesto puesto) {
         this.puesto = puesto;
         PuestoInput.numeroDePuesto++;
