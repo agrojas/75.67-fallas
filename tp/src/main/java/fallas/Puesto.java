@@ -1,4 +1,4 @@
-package src.main.java.fallas;
+package fallas;
 /**
  * Created by agu on 04/07/16.
  */
@@ -18,6 +18,9 @@ public class Puesto {
         this.maquina = maquina;
         this.ambiente = ambiente;
         this.nombre = nombre;
+        this.operadorAprobado = false;
+        this.maquinaAprobado = false;
+        this.ambienteAprobado = false;
     }
 
     public Puesto() {
@@ -25,6 +28,9 @@ public class Puesto {
         this.maquina  = new Maquina();
         this.ambiente = new Ambiente();
         this.nombre = "";
+        this.operadorAprobado = false;
+        this.maquinaAprobado = false;
+        this.ambienteAprobado = false;
     }
 
     public String getNombre() {

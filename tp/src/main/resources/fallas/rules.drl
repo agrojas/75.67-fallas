@@ -1,8 +1,8 @@
 package fallas;
 
-import src.main.java.fallas.Puesto;
-import src.main.java.fallas.Operador;
-import src.main.java.fallas.Ambiente;
+import Puesto;
+import Operador;
+import Ambiente;
 
 // Regla 1 "Verificar protección personal"
 //SI el operario no tiene zapatos de seguridad, no tiene ropa de trabajo o la tiene pero ésta tiene mas de 6 meses de antiguedad, no posee protección visual o no posee protección auditiva ENTONCES el puesto de trabajo no cumple con normas de protección personal.
