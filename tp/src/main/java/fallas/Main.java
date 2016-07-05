@@ -32,6 +32,7 @@ public class Main {
             puestoInput.setNivelLuz(puesto);
             puestoInput.setDelimitacion(puesto);
             System.out.println("***************Resultado***************");
+            System.out.println(puesto.getStatus());
         }
     }
 
