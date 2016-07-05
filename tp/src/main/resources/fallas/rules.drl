@@ -1,4 +1,4 @@
-package fallas;
+package src.main.java.fallas;
 
 import Puesto;
 import Operador;

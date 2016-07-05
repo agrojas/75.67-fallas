@@ -1,4 +1,4 @@
-package fallas;
+package src.main.java.fallas;
 /**
  * Created by agu on 04/07/16.
  */
