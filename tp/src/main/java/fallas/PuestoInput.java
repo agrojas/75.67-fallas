@@ -1,10 +1,13 @@
-package fallas;
+package src.main.java.fallas;
 
 import java.io.BufferedReader;
+import java.io.Console;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Locale;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
+import java.nio.charset.StandardCharsets;
 
 /**
  * Created by agu on 04/07/16.
@@ -145,13 +148,18 @@ public class PuestoInput {
     }
 
     public static int getNumber(){
+        BufferedReader keyboard = new BufferedReader(new InputStreamReader(System.in, StandardCharsets.UTF_8));
+        String line;
         while (true) {
             try {
-                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
-                String input = bufferedReader.readLine();
-                return Integer.parseInt(input);
-            } catch (NumberFormatException ex) {
-                System.out.println("No es un numero valido!");
+                line = keyboard.readLine();
+                if (line != null ) {
+                    try {
+                        return Integer.parseInt(line);
+                    } catch (NumberFormatException ex) {
+                        System.out.println("No es un numero valido!");
+                    }
+                }
             } catch (IOException e) {
                 e.printStackTrace();
             }
