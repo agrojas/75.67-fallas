@@ -44,7 +44,7 @@ public class PuestoInput {
 
     public void setAntiguedad(Puesto puesto) {
         Integer option;
-        option = getIntegerOption("Antiguedad del operario (en meses): ");
+        option = getIntegerOption("Antiguedad de la ropa del operario (en meses): ");
         this.puesto.getOperador().setAntiguedad(option);
     }
 

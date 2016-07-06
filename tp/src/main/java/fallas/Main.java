@@ -43,7 +43,7 @@ public class Main {
 
 
         for (int i = 0; i < number; i++) {
-            puesto = new Puesto();
+//            puesto = new Puesto();
             puestoInput.setPuesto(puesto);
             puestoInput.setNombre(puesto);
             puestoInput.setZapatosDeSeguridad(puesto);

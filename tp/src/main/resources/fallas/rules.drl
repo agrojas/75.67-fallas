@@ -14,15 +14,16 @@ dialect  "mvel"
 //      ó ((protección_visual=No) ó ((nivel_de_ruido>85 db) y (protección_auditiva=No))
 //ENTONCES resultado=el puesto de trabajo no cumple con normas de protección personal.
 rule "ProteccionPersonal_NoAuditiva"
-    salience 100
+salience 100
     when
-        puesto : Puesto();
-        op1 : Operador(zapatosDeSeguridad == true) from puesto.getOperador();
-        op2 : Operador(ropaDeTrabajo == true) from puesto.getOperador();
-        op3 : Operador(antiguedad < 6) from puesto.getOperador();
+    puesto : Puesto( );
+    op: Operador(!zapatosDeSeguridad ||
+    (!ropaDeTrabajo || (ropaDeTrabajo && antiguedad > 6))) from puesto.getOperador();
+    p : Operador(!zapatosDeSeguridad && !protecciónAuditiva) Ambiente(nivelRuido > 85) from puesto;
     then
-        puesto.setOperadorAprobado(true);
+    puesto.setOperadorAprobado(false);
 end
+
 
 // Regla 2 "Verificar higiene en el ambiente laboral"
 //SI el ambiente de trabajo supera el umbral de ruido permitido, (85db), tiene un nivel de iluminación menor a 300 lux o no está debidamente delimitada ENTONCES el puesto de trabajo no cumple de higiene en el ambientes laboral.
