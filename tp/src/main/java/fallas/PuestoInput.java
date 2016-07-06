@@ -32,80 +32,80 @@ public class PuestoInput {
     public void setZapatosDeSeguridad(Puesto puesto) {
         boolean option;
         option = getBoolOption("El operario posee zapatos de seguridad? [S/N]: ");
-        this.puesto.getOperador().setZapatosDeSeguridad(option);
+        this.puesto.setZapatosDeSeguridad(option);
 
     }
 
     public void setRopaDeTrabajo(Puesto puesto) {
         boolean option;
         option = getBoolOption("El operario posee ropa de trabajo? [S/N]: ");
-        this.puesto.getOperador().setRopaDeTrabajo(option);
+        this.puesto.setRopaDeTrabajo(option);
     }
 
     public void setAntiguedad(Puesto puesto) {
         Integer option;
         option = getIntegerOption("Antiguedad de la ropa del operario (en meses): ");
-        this.puesto.getOperador().setAntiguedad(option);
+        this.puesto.setAntiguedad(option);
     }
 
     public void setProtecciónVisual(Puesto puesto) {
         boolean option;
         option = getBoolOption("El operario posee proteccion visual? [S/N]: ");
-        this.puesto.getOperador().setProtecciónVisual(option);
+        this.puesto.setProtecciónVisual(option);
     }
 
     public void setProtecciónAuditiva(Puesto puesto) {
         boolean option;
         option = getBoolOption("El operario posee proteccion auditiva? [S/N]: ");
-        this.puesto.getOperador().setProtecciónAuditiva(option);
+        this.puesto.setProtecciónAuditiva(option);
     }
 
     public void setDescargaATierra(Puesto puesto) {
         boolean option;
         option = getBoolOption("La maquina posee descarga a tierra? [S/N]: ");
-        this.puesto.getMaquina().setDescargaATierra(option);
+        this.puesto.setDescargaATierra(option);
     }
 
     public void setZonaDeRiesgo(Puesto puesto) {
         boolean option;
         option = getBoolOption("La maquina posee delimitacion de zona de riesgo? [S/N]: ");
-        this.puesto.getMaquina().setZonaDeRiesgo(option);
+        this.puesto.setZonaDeRiesgo(option);
     }
 
     public void setSensoresDeDeteccion(Puesto puesto) {
         boolean option;
         option = getBoolOption("La maquina posee sensores de deteccion? [S/N]: ");
-        this.puesto.getMaquina().setSensoresDeDeteccion(option);
+        this.puesto.setSensoresDeDeteccion(option);
     }
 
     public void setDelimitadorDeAcceso(Puesto puesto) {
         boolean option;
         option = getBoolOption("La maquina posee delimitador de acceso? [S/N]: ");
-        this.puesto.getMaquina().setDelimitadorDeAcceso(option);
+        this.puesto.setDelimitadorDeAcceso(option);
     }
 
     public void setComandoDeAccionADosManos(Puesto puesto) {
         boolean option;
         option = getBoolOption("La maquina posee comando de accion a dos manos? [S/N]: ");
-        this.puesto.getMaquina().setComandoDeAccionADosManos(option);
+        this.puesto.setComandoDeAccionADosManos(option);
     }
 
     public void setNivelRuido(Puesto puesto) {
         Double option;
         option = getDoubleOption("Decibeles de ruido del ambiente: ");
-        this.puesto.getAmbiente().setNivelRuido(option);
+        this.puesto.setNivelRuido(option);
     }
 
     public void setNivelLuz(Puesto puesto) {
         Double option;
         option = getDoubleOption("Decibeles de luz del ambiente: ");
-        this.puesto.getAmbiente().setNivelLuz(option);
+        this.puesto.setNivelLuz(option);
     }
 
     public void setDelimitacion(Puesto puesto) {
         boolean option;
         option = getBoolOption("La maquina posee delimitacion? [S/N]: ");
-        this.puesto.getAmbiente().setDelimitacion(option);
+        this.puesto.setDelimitacion(option);
     }
 
     private static String getStringOption(String message) {

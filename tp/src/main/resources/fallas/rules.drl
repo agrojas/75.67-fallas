@@ -17,13 +17,13 @@ dialect  "mvel"
 rule "ProteccionPersonal_NoAuditiva"
 salience 100
     when
-    puesto : Puesto( );
-    op: Operador(!zapatosDeSeguridad ||
-    (!ropaDeTrabajo || (ropaDeTrabajo && antiguedad > 6))) from puesto.getOperador();
-    p : Operador(!zapatosDeSeguridad && !protecciónAuditiva) Ambiente(nivelRuido > 85) from puesto;
-
+    puesto : Puesto(
+        !zapatosDeSeguridad ||
+        (!ropaDeTrabajo || (ropaDeTrabajo && antiguedad > 6)) ||
+        (!protecciónVisual || (nivelRuido > 85 &&  !protecciónAuditiva) )
+         );
     then
-        puesto.setAmbienteAprobado(false);
+        puesto.setCumpleProteccionPersonal(false);
 end
 
 // Regla 2 "Verificar higiene en el ambiente laboral"
@@ -36,25 +36,14 @@ end
 rule "HigieneAmbiente"
     salience 99
     when
-        puesto : Puesto();
-        ambiente1 : Ambiente(nivelRuido < 85) from puesto.getAmbiente();
-        ambiente2 : Ambiente(nivelLuz >= 300) from puesto.getAmbiente();
-        ambiente3 : Ambiente(delimitacion == true) from puesto.getAmbiente();
+        puesto : Puesto(
+           (nivelRuido > 85 && !protecciónAuditiva) ||
+           (nivelLuz < 300 || !delimitacion)
+        );
     then
-        puesto.setAmbienteAprobado(true);
+        puesto.setCumpleHigieneDelAmbienteLaboral(false);
 end
 
-// Cancelan tanto Regla 1 como Regla 2
-rule "ProteccionAuditiva"
-    salience 98
-    when
-        puesto : Puesto();
-        op : Operador(protecciónAuditiva == false) from puesto.getOperador();
-        ambiente : Ambiente(nivelRuido > 85.0) from puesto.getAmbiente();
-    then
-        puesto.setOperadorAprobado(false);
-        puesto.setAmbienteAprobado(false);
-end
 
 // Regla 3
 //Estado de la regla
@@ -67,24 +56,15 @@ end
 //            y (panel_delimitador_de_acceso=No)
 //            y (comando_de_acción_a_dos_manos=No))
 //ENTONCES resultado=el puesto de trabajo no cumple con normas de seguridad en el ambiente laboral.
-rule "SeguridadAmbiente_descargaTierra"
-    salience 97
-    when
-        puesto : Puesto();
-        maq : Maquina(descargaATierra == false) from puesto.getMaquina();
-    then
-        puesto.setMaquinaAprobado(false);
-end
-
 rule "SeguridadAmbiente"
     salience 97
     when
-        puesto : Puesto();
-        maq1 : Maquina(sensoresDeDeteccion == false) from puesto.getMaquina();
-        maq2 : Maquina(delimitadorDeAcceso == false) from puesto.getMaquina();
-        maq3 : Maquina(comandoDeAccionADosManos == false) from puesto.getMaquina();
+        puesto : Puesto(
+        (!descargaATierra) ||
+        (!delimitacion && !sensoresDeDeteccion && !delimitadorDeAcceso && !comandoDeAccionADosManos)
+        );
     then
-        puesto.setMaquinaAprobado(false);
+        puesto.setCumpleSeguridadAmbiente(false);
 end
 
 // Regla 4
@@ -92,6 +72,20 @@ end
 //SI el operario tiene zapatos de seguridad, tiene ropa de trabajo y ésta tiene menos de 6 meses de antigüedad, posee protección visual, posee protección auditiva, además el ambiente de trabajo no supera el umbral de ruido permitido, (85db), tiene un nivel de iluminación superior a 300 lux, está debidamente delimitada y, la máquina guillotina tiene descarga a tierra y protección de riesgo mecánico (delimitación de zona de riesgo, sensores de detección, panel delimitador de acceso de manos o comando de acción a dos manos)  ENTONCES el puesto de trabajo cumple con las normas de seguridad e higiene para el mismo.
 //Formulación externa de
 //la regla
-//SI (zapatos_de_seguridad=Si) y ((ropa_de_trabajo=Si) y (antiguedad<6 meses)) y ((protección_visual=Si) ó (nivel_de_ruido<85 db)) y (nivel_de_luz>=300 lux) y (delimitación=Si) y (descarga_a_tierra=Si) y ((delimitación_de_zona_de_riego=Si) ó (sensores_de_detección=Si) ó (panel_delimitador_de_acceso=Si) ó (comando_de_acción_a_dos_manos=Si)) ENTONCES resultado=el puesto de trabajo cumple con las normas de seguridad e higiene para el mismo.
+//SI (zapatos_de_seguridad=Si) y ((ropa_de_trabajo=Si) y (antiguedad<6 meses))
+//y ((protección_visual=Si) ó (nivel_de_ruido<85 db)) y (nivel_de_luz>=300 lux) y (delimitación=Si) y (descarga_a_tierra=Si)
+//y ((delimitación_de_zona_de_riego=Si) ó (sensores_de_detección=Si) ó (panel_delimitador_de_acceso=Si) ó (comando_de_acción_a_dos_manos=Si))
+//ENTONCES resultado=el puesto de trabajo cumple con las normas de seguridad e higiene para el mismo.
 //Nombre de la regla
 //Puesto de trabajo seguro e higiénico.
+rule "PuestoDeTrabajo"
+    salience 96
+    when
+        puesto : Puesto(
+            zapatosDeSeguridad && (ropaDeTrabajo && (antiguedad < 6)) &&
+            (protecciónVisual || nivelRuido < 85) && (nivelLuz  >= 300) && delimitacion && descargaATierra &&
+            (zonaDeRiesgo || sensoresDeDeteccion || delimitacion || comandoDeAccionADosManos)
+        );
+    then
+        puesto.setCumplePuestoDeTrabajo(true);
+end

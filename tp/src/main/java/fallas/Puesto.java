@@ -5,32 +5,104 @@ package fallas;
 
 
 public class Puesto {
-    private Operador operador;
     private Boolean operadorAprobado;
-    private Maquina maquina;
     private Boolean maquinaAprobado;
-    private Ambiente ambiente;
     private Boolean ambienteAprobado;
     private String nombre;
 
-    public Puesto(Operador operador, Maquina maquina, Ambiente ambiente, String nombre) {
-        this.operador = operador;
-        this.maquina = maquina;
-        this.ambiente = ambiente;
-        this.nombre = nombre;
-        this.operadorAprobado = false;
-        this.maquinaAprobado = false;
-        this.ambienteAprobado = false;
-    }
+    //Operador
+    private Double nivelRuido;
+    private Boolean ropaDeTrabajo;
+    private Integer antiguedad;
+    private Boolean protecciónVisual;
+    private Boolean protecciónAuditiva;
+
+    //Ambiente
+    private Boolean zapatosDeSeguridad;
+    private Double nivelLuz;
+    private Boolean delimitacion;
+
+//    Maquina
+private Boolean descargaATierra;
+    private Boolean zonaDeRiesgo;
+    private Boolean sensoresDeDeteccion;
+    private Boolean delimitadorDeAcceso;
+    private Boolean comandoDeAccionADosManos;
+    private Boolean cumpleProteccionPersonal;
+    private Boolean cumpleHigieneDelAmbienteLaboral;
+    private Boolean cumpleSeguridadAmbiente;
+    private Boolean cumplePuestoDeTrabajo;
 
     public Puesto() {
-        this.operador  = new Operador();
-        this.maquina  = new Maquina();
-        this.ambiente = new Ambiente();
-        this.nombre = "";
         this.operadorAprobado = false;
         this.maquinaAprobado = false;
         this.ambienteAprobado = false;
+        this.nombre = "";
+        this.nivelRuido = 0.0;
+        this.ropaDeTrabajo = false;
+        this.antiguedad = 0;
+        this.protecciónVisual = false;
+        this.protecciónAuditiva = false;
+        this.zapatosDeSeguridad = false;
+        this.nivelLuz = 0.0;
+        this.delimitacion = false;
+        this.descargaATierra = false;
+        this.zonaDeRiesgo = false;
+        this.sensoresDeDeteccion = false;
+        this.delimitadorDeAcceso = false;
+        this.comandoDeAccionADosManos = false;
+
+        this.cumpleProteccionPersonal = true;
+        this.cumpleHigieneDelAmbienteLaboral = true;
+        this.cumpleSeguridadAmbiente = true;
+        this.cumplePuestoDeTrabajo = false;
+
+    }
+
+
+
+
+    public String getStatus() {
+        String reporte = "Verificando puesto " + this.nombre + "\n";
+        if (!cumpleProteccionPersonal) {
+            reporte = reporte + "Operador: La proteccion personal del operador no esta aprobada\n";
+        }
+        if (!cumpleHigieneDelAmbienteLaboral) {
+            reporte = reporte + "Ambiente: La higiene del ambiente laboral no esta aprobada\n";
+        }
+        if (!cumpleSeguridadAmbiente) {
+            reporte = reporte + "Ambiente: La seguridad del ambiente laboral no esta aprobada\n";
+        }
+        if (!cumplePuestoDeTrabajo) {
+            reporte = reporte + "Puesto de trabajo: El puesto de trabajo no esta aprobado\n";
+        } else {
+            reporte = reporte + "Puesto de trabajo: El puesto de trabajo esta aprobado\n";
+        }
+        return reporte;
+    }
+
+    public Boolean getOperadorAprobado() {
+        return operadorAprobado;
+    }
+
+    public void setOperadorAprobado(Boolean operadorAprobado) {
+        this.operadorAprobado = operadorAprobado;
+    }
+
+    public Boolean getMaquinaAprobado() {
+        return maquinaAprobado;
+    }
+
+    public void setMaquinaAprobado(Boolean maquinaAprobado) {
+        this.maquinaAprobado = maquinaAprobado;
+    }
+
+    public Boolean getAmbienteAprobado() {
+        return ambienteAprobado;
+    }
+
+    public void setAmbienteAprobado(Boolean ambienteAprobado) {
+        this.ambienteAprobado = ambienteAprobado;
     }
 
     public String getNombre() {
@@ -41,53 +113,124 @@ public class Puesto {
         this.nombre = nombre;
     }
 
-    public Operador getOperador() {
-        return operador;
+    public Double getNivelRuido() {
+        return nivelRuido;
     }
 
-    public void setOperador(Operador operador) {
-        this.operador = operador;
+    public void setNivelRuido(Double nivelRuido) {
+        this.nivelRuido = nivelRuido;
     }
 
-    public Maquina getMaquina() {
-        return maquina;
+    public Boolean getRopaDeTrabajo() {
+        return ropaDeTrabajo;
     }
 
-    public void setMaquina(Maquina maquina) {
-        this.maquina = maquina;
+    public void setRopaDeTrabajo(Boolean ropaDeTrabajo) {
+        this.ropaDeTrabajo = ropaDeTrabajo;
     }
 
-    public Ambiente getAmbiente() {
-        return ambiente;
+    public Integer getAntiguedad() {
+        return antiguedad;
     }
 
-    public void setAmbiente(Ambiente ambiente) {
-        this.ambiente = ambiente;
+    public void setAntiguedad(Integer antiguedad) {
+        this.antiguedad = antiguedad;
     }
 
-    public void setOperadorAprobado(Boolean estado) {
-        operadorAprobado = estado;
+    public Boolean getProtecciónVisual() {
+        return protecciónVisual;
     }
 
-    public void setAmbienteAprobado(Boolean estado) {
-        ambienteAprobado = estado;
-    }
-    public void setMaquinaAprobado(Boolean estado) {
-        maquinaAprobado = estado;
+    public void setProtecciónVisual(Boolean protecciónVisual) {
+        this.protecciónVisual = protecciónVisual;
     }
 
-    public String getStatus() {
-        String reporte = "";
-        if (!operadorAprobado) {
-            reporte = reporte + "Operador: La proteccion personal del operador no esta aprobada\n";
-        }
-        if (!ambienteAprobado) {
-            reporte = reporte + "Ambiente: La higiene del ambiente laboral no esta aprobada\n";
-        }
-        if (!maquinaAprobado) {
-            reporte = reporte + "Maquina: La maquina no esta aprobada\n";
-        }
+    public Boolean getProtecciónAuditiva() {
+        return protecciónAuditiva;
+    }
 
-        return reporte;
+    public void setProtecciónAuditiva(Boolean protecciónAuditiva) {
+        this.protecciónAuditiva = protecciónAuditiva;
+    }
+
+    public Boolean getZapatosDeSeguridad() {
+        return zapatosDeSeguridad;
+    }
+
+    public void setZapatosDeSeguridad(Boolean zapatosDeSeguridad) {
+        this.zapatosDeSeguridad = zapatosDeSeguridad;
+    }
+
+    public Double getNivelLuz() {
+        return nivelLuz;
+    }
+
+    public void setNivelLuz(Double nivelLuz) {
+        this.nivelLuz = nivelLuz;
+    }
+
+    public Boolean getDelimitacion() {
+        return delimitacion;
+    }
+
+    public void setDelimitacion(Boolean delimitacion) {
+        this.delimitacion = delimitacion;
+    }
+
+    public Boolean getDescargaATierra() {
+        return descargaATierra;
+    }
+
+    public void setDescargaATierra(Boolean descargaATierra) {
+        this.descargaATierra = descargaATierra;
+    }
+
+    public Boolean getZonaDeRiesgo() {
+        return zonaDeRiesgo;
+    }
+
+    public void setZonaDeRiesgo(Boolean zonaDeRiesgo) {
+        this.zonaDeRiesgo = zonaDeRiesgo;
+    }
+
+    public Boolean getSensoresDeDeteccion() {
+        return sensoresDeDeteccion;
+    }
+
+    public void setSensoresDeDeteccion(Boolean sensoresDeDeteccion) {
+        this.sensoresDeDeteccion = sensoresDeDeteccion;
+    }
+
+    public Boolean getDelimitadorDeAcceso() {
+        return delimitadorDeAcceso;
+    }
+
+    public void setDelimitadorDeAcceso(Boolean delimitadorDeAcceso) {
+        this.delimitadorDeAcceso = delimitadorDeAcceso;
+    }
+
+    public Boolean getComandoDeAccionADosManos() {
+        return comandoDeAccionADosManos;
+    }
+
+    public void setComandoDeAccionADosManos(Boolean comandoDeAccionADosManos) {
+        this.comandoDeAccionADosManos = comandoDeAccionADosManos;
+    }
+
+    public void setCumpleProteccionPersonal(boolean b) {
+        this.cumpleProteccionPersonal= b;
+    }
+
+    public void setCumpleHigieneDelAmbienteLaboral(boolean b) {
+        this.cumpleHigieneDelAmbienteLaboral= b;
+    }
+
+    public void setCumpleSeguridadAmbiente(boolean b) {
+        this.cumpleSeguridadAmbiente= b;
+
+    }
+
+    public void setCumplePuestoDeTrabajo(boolean b) {
+        this.cumplePuestoDeTrabajo= b;
     }
 }
