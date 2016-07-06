@@ -1,4 +1,4 @@
-# mago-merlino
+# 75.67 - Fallas I
 
 ## Generar el proyecto
 
