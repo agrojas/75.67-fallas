@@ -13,15 +13,62 @@ dialect  "mvel"
 //      ó ((ropa_de_trabajo=No) ó ((ropa_de_trabajo=Si) y (antiguedad>6 meses)))
 //      ó ((protección_visual=No) ó ((nivel_de_ruido>85 db) y (protección_auditiva=No))
 //ENTONCES resultado=el puesto de trabajo no cumple con normas de protección personal.
-rule "ProteccionPersonal_NoAuditiva"
+rule "ProteccionPersonal_NoAuditiva_Apobado"
     salience 100
     when
         puesto : Puesto();
         op1 : Operador(zapatosDeSeguridad == true) from puesto.getOperador();
-        op2 : Operador(ropaDeTrabajo == true) from puesto.getOperador();
-        op3 : Operador(antiguedad < 6) from puesto.getOperador();
+        op2 : Operador(protecciónVisual == true) from puesto.getOperador();
+        op3 : Operador(ropaDeTrabajo == true) from puesto.getOperador();
+        op4 : Operador(antiguedad < 6) from puesto.getOperador();
     then
         puesto.setOperadorAprobado(true);
+end
+
+rule "ProteccionPersonal_NoAuditiva_DesaprobadoSinRopa"
+    salience 99
+    when
+        puesto : Puesto();
+        op : Operador(ropaDeTrabajo == false) from puesto.getOperador();
+    then
+        puesto.setOperadorAprobado(false);
+end
+rule "ProteccionPersonal_NoAuditiva_DesaprobadoPorRopaVieja"
+    salience 99
+    when
+        puesto : Puesto();
+        op1 : Operador(ropaDeTrabajo == true) from puesto.getOperador();
+        op2 : Operador(antiguedad >= 6) from puesto.getOperador();
+    then
+        puesto.setOperadorAprobado(false);
+end
+
+rule "ProteccionPersonal_NoAuditiva_DesaprobadoSinZapatos"
+    salience 99
+    when
+        puesto : Puesto();
+        op : Operador(zapatosDeSeguridad == false) from puesto.getOperador();
+    then
+        puesto.setOperadorAprobado(false);
+end
+
+rule "ProteccionPersonal_NoAuditiva_DesaprobadoSinProteccionVisual"
+    salience 99
+    when
+        puesto : Puesto();
+        op : Operador(protecciónVisual == false) from puesto.getOperador();
+    then
+        puesto.setOperadorAprobado(false);
+end
+
+rule "ProteccionPersonal_Auditiva_Desaprobado"
+    salience 98
+    when
+        puesto : Puesto();
+        op : Operador(protecciónAuditiva == false) from puesto.getOperador();
+        ambiente : Ambiente(nivelRuido > 85.0) from puesto.getAmbiente();
+    then
+        puesto.setOperadorAprobado(false);
 end
 
 // Regla 2 "Verificar higiene en el ambiente laboral"
@@ -59,9 +106,31 @@ end
 //SI la maquina guillotina no tiene descarga a tierra o no tiene protección de riesgo mecánico (delimitación de zona de riesgo, sensores de detección, panel delimitador de acceso de manos o comando de acción a dos manos) ENTONCES el puesto de trabajo no cumple con normas de seguridad en el ambiente laboral.
 //Formulación externa de
 //la regla
-//SI (descarga_a_tierra=No) ó ((delimitación_de_zona_de_riego=No) y (sensores_de_detección=No) y (panel_delimitador_de_acceso=No) y (comando_de_acción_a_dos_manos=No)) ENTONCES resultado=el puesto de trabajo no cumple con normas de seguridad en el ambiente laboral.
-//Nombre de la regla
-//Verificar seguridad en el ambiente laboral.
+//SI (descarga_a_tierra=No)
+//      ó ((delimitación_de_zona_de_riego=No)
+//            y (sensores_de_detección=No)
+//            y (panel_delimitador_de_acceso=No)
+//            y (comando_de_acción_a_dos_manos=No))
+//ENTONCES resultado=el puesto de trabajo no cumple con normas de seguridad en el ambiente laboral.
+rule "SeguridadAmbiente_descargaTierra"
+    salience 97
+    when
+        puesto : Puesto();
+        maq : Maquina(descargaATierra == false) from puesto.getMaquina();
+    then
+        puesto.setMaquinaAprobado(false);
+end
+
+rule "SeguridadAmbiente"
+    salience 97
+    when
+        puesto : Puesto();
+        maq : Maquina(sensoresDeDeteccion == false) from puesto.getMaquina();
+        maq : Maquina(delimitadorDeAcceso == false) from puesto.getMaquina();
+        maq : Maquina(comandoDeAccionADosManos == false) from puesto.getMaquina();
+    then
+        puesto.setMaquinaAprobado(false);
+end
 
 // Regla 4
 //Estado de la regla
