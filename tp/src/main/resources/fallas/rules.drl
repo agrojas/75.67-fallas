@@ -25,6 +25,7 @@ salience 100
     then
         puesto.setAmbienteAprobado(false);
 end
+
 // Regla 2 "Verificar higiene en el ambiente laboral"
 //SI el ambiente de trabajo supera el umbral de ruido permitido, (85db), tiene un nivel de iluminación menor a 300 lux o no está debidamente delimitada ENTONCES el puesto de trabajo no cumple de higiene en el ambientes laboral.
 //Formulación externa de
@@ -79,9 +80,9 @@ rule "SeguridadAmbiente"
     salience 97
     when
         puesto : Puesto();
-        maq : Maquina(sensoresDeDeteccion == false) from puesto.getMaquina();
-        maq : Maquina(delimitadorDeAcceso == false) from puesto.getMaquina();
-        maq : Maquina(comandoDeAccionADosManos == false) from puesto.getMaquina();
+        maq1 : Maquina(sensoresDeDeteccion == false) from puesto.getMaquina();
+        maq2 : Maquina(delimitadorDeAcceso == false) from puesto.getMaquina();
+        maq3 : Maquina(comandoDeAccionADosManos == false) from puesto.getMaquina();
     then
         puesto.setMaquinaAprobado(false);
 end

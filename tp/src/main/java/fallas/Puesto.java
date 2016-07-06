@@ -72,6 +72,9 @@ public class Puesto {
     public void setAmbienteAprobado(Boolean estado) {
         ambienteAprobado = estado;
     }
+    public void setMaquinaAprobado(Boolean estado) {
+        maquinaAprobado = estado;
+    }
 
     public String getStatus() {
         String reporte = "";
@@ -80,6 +83,9 @@ public class Puesto {
         }
         if (!ambienteAprobado) {
             reporte = reporte + "Ambiente: La higiene del ambiente laboral no esta aprobada\n";
+        }
+        if (!maquinaAprobado) {
+            reporte = reporte + "Maquina: La maquina no esta aprobada\n";
         }
 
         return reporte;
