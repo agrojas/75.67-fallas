@@ -9,7 +9,7 @@
 
 Para clonar el branch y empezar a desarrollar sobre el mismo, desde la linea de comandos ubicarse en el directorio **Guillotina** y ejecutar:
 
-`git clone -b App https://github.com/agrojas/75.67-fallas.git`
+`git clone https://github.com/agrojas/75.67-fallas.git`
 
 ## Generar el proyecto
 
