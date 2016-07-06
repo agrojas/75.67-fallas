@@ -22,6 +22,9 @@ salience 100
     (!ropaDeTrabajo || (ropaDeTrabajo && antiguedad > 6))) from puesto.getOperador();
     p : Operador(!zapatosDeSeguridad && !protecciónAuditiva) Ambiente(nivelRuido > 85) from puesto;
 
+    then
+        puesto.setAmbienteAprobado(false);
+end
 // Regla 2 "Verificar higiene en el ambiente laboral"
 //SI el ambiente de trabajo supera el umbral de ruido permitido, (85db), tiene un nivel de iluminación menor a 300 lux o no está debidamente delimitada ENTONCES el puesto de trabajo no cumple de higiene en el ambientes laboral.
 //Formulación externa de
