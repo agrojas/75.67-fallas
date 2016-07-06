@@ -1,9 +1,10 @@
-package src.main.java.fallas;
+package fallas;
 
 import Puesto;
 import Operador;
 import Ambiente;
 
+dialect  "mvel"
 
 // Regla 1 "Verificar protección personal"
 //SI el operario no tiene zapatos de seguridad, no tiene ropa de trabajo o la tiene pero ésta tiene mas de 6 meses de antiguedad, no posee protección visual o no posee protección auditiva ENTONCES el puesto de trabajo no cumple con normas de protección personal.
@@ -16,9 +17,9 @@ rule "ProteccionPersonal_NoAuditiva"
     salience 100
     when
         puesto : Puesto();
-        op : Operador(zapatosDeSeguridad == true) from puesto.getOperador();
-        op : Operador(ropaDeTrabajo == true) from puesto.getOperador();
-        op : Operador(antiguedad < 6) from puesto.getOperador();
+        op1 : Operador(zapatosDeSeguridad == true) from puesto.getOperador();
+        op2 : Operador(ropaDeTrabajo == true) from puesto.getOperador();
+        op3 : Operador(antiguedad < 6) from puesto.getOperador();
     then
         puesto.setOperadorAprobado(true);
 end
@@ -34,9 +35,9 @@ rule "HigieneAmbiente"
     salience 99
     when
         puesto : Puesto();
-        ambiente : Ambiente(nivelRuido < 85) from puesto.getAmbiente();
-        ambiente : Ambiente(nivelLuz >= 300) from puesto.getAmbiente();
-        ambiente : Ambiente(delimitacion == true) from puesto.getAmbiente();
+        ambiente1 : Ambiente(nivelRuido < 85) from puesto.getAmbiente();
+        ambiente2 : Ambiente(nivelLuz >= 300) from puesto.getAmbiente();
+        ambiente3 : Ambiente(delimitacion == true) from puesto.getAmbiente();
     then
         puesto.setAmbienteAprobado(true);
 end
