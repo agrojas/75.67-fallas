@@ -13,6 +13,7 @@ dialect  "mvel"
 //      ó ((ropa_de_trabajo=No) ó ((ropa_de_trabajo=Si) y (antiguedad>6 meses)))
 //      ó ((protección_visual=No) ó ((nivel_de_ruido>85 db) y (protección_auditiva=No))
 //ENTONCES resultado=el puesto de trabajo no cumple con normas de protección personal.
+
 rule "ProteccionPersonal_NoAuditiva"
 salience 100
     when
@@ -20,10 +21,6 @@ salience 100
     op: Operador(!zapatosDeSeguridad ||
     (!ropaDeTrabajo || (ropaDeTrabajo && antiguedad > 6))) from puesto.getOperador();
     p : Operador(!zapatosDeSeguridad && !protecciónAuditiva) Ambiente(nivelRuido > 85) from puesto;
-    then
-    puesto.setOperadorAprobado(false);
-end
-
 
 // Regla 2 "Verificar higiene en el ambiente laboral"
 //SI el ambiente de trabajo supera el umbral de ruido permitido, (85db), tiene un nivel de iluminación menor a 300 lux o no está debidamente delimitada ENTONCES el puesto de trabajo no cumple de higiene en el ambientes laboral.
@@ -60,9 +57,31 @@ end
 //SI la maquina guillotina no tiene descarga a tierra o no tiene protección de riesgo mecánico (delimitación de zona de riesgo, sensores de detección, panel delimitador de acceso de manos o comando de acción a dos manos) ENTONCES el puesto de trabajo no cumple con normas de seguridad en el ambiente laboral.
 //Formulación externa de
 //la regla
-//SI (descarga_a_tierra=No) ó ((delimitación_de_zona_de_riego=No) y (sensores_de_detección=No) y (panel_delimitador_de_acceso=No) y (comando_de_acción_a_dos_manos=No)) ENTONCES resultado=el puesto de trabajo no cumple con normas de seguridad en el ambiente laboral.
-//Nombre de la regla
-//Verificar seguridad en el ambiente laboral.
+//SI (descarga_a_tierra=No)
+//      ó ((delimitación_de_zona_de_riego=No)
+//            y (sensores_de_detección=No)
+//            y (panel_delimitador_de_acceso=No)
+//            y (comando_de_acción_a_dos_manos=No))
+//ENTONCES resultado=el puesto de trabajo no cumple con normas de seguridad en el ambiente laboral.
+rule "SeguridadAmbiente_descargaTierra"
+    salience 97
+    when
+        puesto : Puesto();
+        maq : Maquina(descargaATierra == false) from puesto.getMaquina();
+    then
+        puesto.setMaquinaAprobado(false);
+end
+
+rule "SeguridadAmbiente"
+    salience 97
+    when
+        puesto : Puesto();
+        maq : Maquina(sensoresDeDeteccion == false) from puesto.getMaquina();
+        maq : Maquina(delimitadorDeAcceso == false) from puesto.getMaquina();
+        maq : Maquina(comandoDeAccionADosManos == false) from puesto.getMaquina();
+    then
+        puesto.setMaquinaAprobado(false);
+end
 
 // Regla 4
 //Estado de la regla
